@@ -65,7 +65,7 @@ public class TimeCommand extends HelpfulCommandsCommand {
         ServerLevel level = src.getLevel();
         Holder<WorldClock> clock = getDefaultClock(level.dimensionTypeRegistration());
 
-        long currentTotal = clockManager.getTotalTicks(clock);
+        long currentTotal = clockManager.getInstance(clock).totalTicks();
         long currentTimeOfDay = currentTotal % 24000L;
         long ticksToAdd = time - currentTimeOfDay;
         if (ticksToAdd <= 0) {
@@ -78,7 +78,7 @@ public class TimeCommand extends HelpfulCommandsCommand {
         HelpfulCommandsStyle.TextStyles textStyles = StylingManager.getCurrentStyle().getTextStyles();
 
         ComponentBuilder hoverComponentBuilder = new ComponentBuilder(src);
-        hoverComponentBuilder.appendTranslatable("commands.helpfulcommands.time.ticks", Component.literal(String.valueOf(clockManager.getTotalTicks(clock))));
+        hoverComponentBuilder.appendTranslatable("commands.helpfulcommands.time.ticks", Component.literal(String.valueOf(clockManager.getInstance(clock).totalTicks())));
         ComponentBuilder timeComponentBuilder = new ComponentBuilder(src);
         timeComponentBuilder.appendTranslatable("commands.helpfulcommands.time." + time).setStyle(textStyles.getPrimary().withHoverEvent(new HoverEvent.ShowText(hoverComponentBuilder.build())));
 
